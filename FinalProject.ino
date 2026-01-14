@@ -11,13 +11,9 @@ int CLK = 13;
 LedControl lc = LedControl(DIN, CLK, CS, 2);
 
 int btnPins[] = { 5, 4, 3, 2 };
-int guesses[4] = { 0, 0, 0, 0 };
-int password[4] = { 6, 7, 6, 7 };
-
-int passBtnPin = 8;
+int guesses[4] = {0,0,0,0};
 
 int buttonState;
-int passBtnState;
 
 // grid to create number designs universally
 int grid[8];
@@ -40,15 +36,14 @@ void setup() {
   pinMode(btnPins[1], INPUT);
   pinMode(btnPins[2], INPUT);
   pinMode(btnPins[3], INPUT);
-
-  pinMode(passBtnPin, INPUT);
 }
 
 void loop() {
   printGrid(0, guesses[0], guesses[1]);
   printGrid(1, guesses[2], guesses[3]);
-  passwordChecker();
+  
   btnRead();
+
 }
 
 void printGrid(int gridselectnum, int leftnum, int rightnum) {
@@ -73,7 +68,7 @@ void btnRead() {
 
   for (int i = 0; i < 4; i++) {
     buttonState = digitalRead(btnPins[i]);
-    delay(25);
+    delay(50);
     if (buttonState == HIGH) {
       guesses[i] = guesses[i] + 1;
       if (guesses[i] > 9) {
@@ -82,15 +77,4 @@ void btnRead() {
     }
   }
 }
-
-
-// void passwordChecker() {
-//   passBtnState = digitalRead(passBtnPin);
-//   if (passBtnState == HIGH) {
-//     for (int i = 0; i < 4; i++) {
-//       if (numbers[guesses[i]] == password[i]) {
-//         Serial.println("Correct!");
-//       }
-//     }
-//   }
-// }
+  
